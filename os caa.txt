@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<conio.h>
+void fun(int process,int remt[10],int Cur_t,int arrival_Time[10], int
+burst_Time[10]);
+main()
+{
+int Proc_no,j,process,CurT,NoProc,time_quantum,wait,tut,arrival_Time[10],
+burst_Time[10],remt[10],x=1;
+ wait=0;
+tut=0;
+printf("Enter number of processes ");
+scanf("%d",&process);
+NoProc = process;
+printf("\nEnter the arrival time and burst time of the processes\n");
+for(Proc_no = 0;Proc_no < process;Proc_no++)
+{
+printf("\nProcess P%d\n",Proc_no+1);
+printf("Arrival time = ");
+scanf("%d",&arrival_Time[Proc_no]);
+printf("Burst time = ");
+scanf("%d",&burst_Time[Proc_no]);
+remt[Proc_no]=burst_Time[Proc_no];
+}
+printf("The details of time quantum are as follows:\n");
+printf("The time quantum for first round is 6.\n");
+time_quantum=6;
+CurT=0;
+for(Proc_no=0;NoProc!=0;Proc_no<NoProc)
+{
+if(remt[Proc_no]>0)
+{
+remt[Proc_no]-=time_quantum;
+CurT+=time_quantum;
+}
+}
+if(Proc_no==no-1){
+x++;
+if(x==2){
+Proc_no=0;
+time_quantum=10;
+printf("The time quantum for second round is 10. \n");
+}
+else{
+break;
+}
+}
+else if(CurT >= arrival_Time[Proc_no+1]){
+Proc_no++;
+}
+else{
+Proc_no=0;
+}
+}
+fun(process,remt,CurT,arrival_Time,burst_Time);
+return 0;
+}
+void fun(int process,int remt[10],int Cur_t,int arrival_Time[10], int
+burst_Time[10]){
+float avg_wait,avg_tut;
+ int i,j,n=process,temp,btime[20],Proc_no[20],w_time[20],tut_t[20],total=0,loc;
+
+ printf("Third round with least burst time.\n");
+
+ for(i=0;i<n;i++)
+ {
+ btime[i]=remt[i];
+ w_time[i]=Cur_t-arrival_Time[i]-btime[i];
+Proc_no[i]=i+1;
+ }
+
+int sum1=0;
+ for(i=0;i<n;i++)
+ {
+ sum1=sum1+w_time[i];
+ }
+ avg_wait=(float)sum1/n;
+ total=0;
+ printf("\nProcess\t\tBurst time\t\twaiting time\t\tTurnaround Time");
+
+ for(i=0;i<n;i++)
+ {
+ tut_t[i]=btime[i]+w_time[i];
+ total=total + tut_t[i];
+
+printf("\nP%d\t\t\t%d\t\t\t%d\t\t\t%d",Proc_no[i],btime[i],w_time[i],tut_t[i]);
+
+
+ }
+ avg_tut=(float)total/n;
+ printf("\n\nAverage waiting time = %f",avg_wait);
+ printf("\n Average turnaround time = %f\n",avg_tut);
+ }
